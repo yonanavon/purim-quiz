@@ -23,7 +23,7 @@
           <span class="life" id="life2">🍷</span>
           <span class="life" id="life3">🍷</span>
         </div>
-        <span style="font-size:0.8rem;">חיים</span>
+        <span style="font-size:0.8rem; color:rgba(59,7,100,0.55); font-weight:600;">חיים</span>
       </div>
       <div class="stat">
         <span class="stat-value" id="wrongCount">0</span>
@@ -43,72 +43,124 @@
 
       <!-- Gallows SVG -->
       <div class="gallows-container" style="flex: 0 0 280px;">
-        <svg class="gallows-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
-          <!-- GALLOWS STRUCTURE: parts 1-13 -->
+        <svg class="gallows-svg" viewBox="0 0 200 268" xmlns="http://www.w3.org/2000/svg">
 
-          <!-- Part 1: Base platform left -->
-          <rect id="gp1" x="10" y="245" width="80" height="10" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 2: Base platform right -->
-          <rect id="gp2" x="90" y="245" width="70" height="10" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 3: Left vertical post lower -->
-          <rect id="gp3" x="45" y="180" width="12" height="65" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 4: Left vertical post upper -->
-          <rect id="gp4" x="45" y="100" width="12" height="80" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 5: Diagonal brace -->
-          <line id="gp5" x1="57" y1="130" x2="90" y2="100" stroke="#8B4513" stroke-width="8" stroke-linecap="round" opacity="0"/>
-          <!-- Part 6: Top horizontal beam left -->
-          <rect id="gp6" x="45" y="92" width="60" height="12" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 7: Top horizontal beam right -->
-          <rect id="gp7" x="105" y="92" width="55" height="12" rx="3" fill="#8B4513" opacity="0"/>
-          <!-- Part 8: Rope top section -->
-          <line id="gp8" x1="148" y1="104" x2="148" y2="120" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
-          <!-- Part 9: Rope knot circle -->
-          <circle id="gp9" cx="148" cy="123" r="5" fill="none" stroke="#d4a017" stroke-width="3" opacity="0"/>
-          <!-- Part 10: Platform support left -->
-          <rect id="gp10" x="60" y="220" width="10" height="25" rx="2" fill="#6B3410" opacity="0"/>
-          <!-- Part 11: Platform board -->
-          <rect id="gp11" x="55" y="215" width="50" height="8" rx="2" fill="#A0522D" opacity="0"/>
-          <!-- Part 12: Platform support right -->
-          <rect id="gp12" x="100" y="220" width="10" height="25" rx="2" fill="#6B3410" opacity="0"/>
-          <!-- Part 13: Rope lower section -->
-          <line id="gp13" x1="148" y1="128" x2="148" y2="138" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
+          <!-- ══════ GALLOWS STRUCTURE: parts 1–13 ══════ -->
 
-          <!-- HAMAN: parts 14-30 -->
+          <!-- gp1: Ground shadow -->
+          <ellipse id="gp1" cx="76" cy="260" rx="54" ry="7" fill="rgba(100,60,10,0.18)" opacity="0"/>
 
-          <!-- Part 14: Body torso -->
-          <rect id="gp14" x="136" y="174" width="24" height="40" rx="8" fill="#e8c49a" opacity="0"/>
-          <!-- Part 15: Fancy coat / robe -->
-          <rect id="gp15" x="132" y="176" width="32" height="36" rx="6" fill="#9333ea" opacity="0"/>
-          <!-- Part 16: Gold trim on coat -->
-          <rect id="gp16" x="146" y="176" width="4" height="36" rx="2" fill="#f59e0b" opacity="0"/>
-          <!-- Part 17: Head -->
-          <circle id="gp17" cx="148" cy="158" r="18" fill="#e8c49a" opacity="0"/>
-          <!-- Part 18: Crown base -->
-          <rect id="gp18" x="132" y="138" width="32" height="10" rx="3" fill="#f59e0b" opacity="0"/>
-          <!-- Part 19: Crown spike left -->
-          <polygon id="gp19" points="134,138 139,124 144,138" fill="#f59e0b" opacity="0"/>
-          <!-- Part 20: Crown spike middle -->
-          <polygon id="gp20" points="144,138 148,120 152,138" fill="#f59e0b" opacity="0"/>
-          <!-- Part 21: Crown spike right -->
-          <polygon id="gp21" points="152,138 157,124 162,138" fill="#f59e0b" opacity="0"/>
-          <!-- Part 22: Crown jewel -->
-          <circle id="gp22" cx="148" cy="130" r="4" fill="#dc2626" opacity="0"/>
-          <!-- Part 23: Evil eye left -->
-          <ellipse id="gp23" cx="141" cy="155" rx="4" ry="5" fill="#1a0a3c" opacity="0"/>
-          <!-- Part 24: Evil eye right -->
-          <ellipse id="gp24" cx="155" cy="155" rx="4" ry="5" fill="#1a0a3c" opacity="0"/>
-          <!-- Part 25: Sinister grin -->
-          <path id="gp25" d="M 140 166 Q 148 173 156 166" stroke="#8B0000" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0"/>
-          <!-- Part 26: Left arm -->
-          <line id="gp26" x1="132" y1="185" x2="112" y2="200" stroke="#e8c49a" stroke-width="8" stroke-linecap="round" opacity="0"/>
-          <!-- Part 27: Right arm -->
-          <line id="gp27" x1="164" y1="185" x2="184" y2="200" stroke="#e8c49a" stroke-width="8" stroke-linecap="round" opacity="0"/>
-          <!-- Part 28: Left leg -->
-          <line id="gp28" x1="140" y1="214" x2="130" y2="244" stroke="#9333ea" stroke-width="9" stroke-linecap="round" opacity="0"/>
-          <!-- Part 29: Right leg -->
-          <line id="gp29" x1="156" y1="214" x2="166" y2="244" stroke="#9333ea" stroke-width="9" stroke-linecap="round" opacity="0"/>
-          <!-- Part 30: Rope around neck (final) -->
-          <path id="gp30" d="M 148 140 L 148 134 Q 148 128 148 126" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
+          <!-- gp2: Ground / earth base -->
+          <rect id="gp2" x="22" y="251" width="108" height="14" rx="5" fill="#8B6340" opacity="0"/>
+
+          <!-- gp3: Post — lower half -->
+          <rect id="gp3" x="47" y="155" width="16" height="98" rx="3" fill="#9c5a2e" opacity="0"/>
+
+          <!-- gp4: Post — upper half -->
+          <rect id="gp4" x="47" y="58" width="16" height="97" rx="3" fill="#9c5a2e" opacity="0"/>
+
+          <!-- gp5: Post wood grain (dashed line) -->
+          <line id="gp5" x1="52" y1="72" x2="52" y2="246" stroke="#7a4420" stroke-width="1.5" stroke-dasharray="10 5" opacity="0"/>
+
+          <!-- gp6: Diagonal brace (filled triangle) -->
+          <polygon id="gp6" points="63,162 110,76 122,86 74,168" fill="#8B4513" opacity="0"/>
+
+          <!-- gp7: Horizontal beam -->
+          <rect id="gp7" x="47" y="54" width="120" height="18" rx="4" fill="#9c5a2e" opacity="0"/>
+
+          <!-- gp8: Beam wood grain -->
+          <line id="gp8" x1="62" y1="60" x2="160" y2="60" stroke="#7a4420" stroke-width="1.5" opacity="0"/>
+
+          <!-- gp9: Rope anchor cap at beam end -->
+          <rect id="gp9" x="158" y="54" width="12" height="18" rx="3" fill="#5c3010" opacity="0"/>
+
+          <!-- gp10: Rope — top straight section -->
+          <line id="gp10" x1="162" y1="72" x2="162" y2="97" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
+
+          <!-- gp11: Rope — noose loop -->
+          <ellipse id="gp11" cx="162" cy="103" rx="10" ry="7" fill="none" stroke="#b8860b" stroke-width="3" opacity="0"/>
+
+          <!-- gp12: Rope — connector below noose -->
+          <line id="gp12" x1="162" y1="110" x2="162" y2="118" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
+
+          <!-- gp13: Platform (board + two support posts) -->
+          <g id="gp13" opacity="0">
+            <rect x="58" y="212" width="56" height="9" rx="3" fill="#9c5a2e"/>
+            <rect x="63" y="221" width="9" height="32" rx="2" fill="#7a4420"/>
+            <rect x="97" y="221" width="9" height="32" rx="2" fill="#7a4420"/>
+          </g>
+
+          <!-- ══════ HAMAN: parts 14–30 (wrapped in group for swing animation) ══════ -->
+          <g id="hamanGroup">
+            <!-- SVG-native swing animation — triggered by JS on win -->
+            <animateTransform
+              id="hamanSwing"
+              attributeName="transform"
+              type="rotate"
+              values="-6 162 72; 6 162 72; -6 162 72"
+              keyTimes="0; 0.5; 1"
+              calcMode="spline"
+              keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+              dur="2s"
+              repeatCount="indefinite"
+              begin="indefinite"
+            />
+
+            <!-- gp14: Skin torso -->
+            <rect id="gp14" x="150" y="152" width="24" height="46" rx="8" fill="#e8c49a" opacity="0"/>
+
+            <!-- gp15: Purple robe -->
+            <rect id="gp15" x="145" y="154" width="34" height="42" rx="8" fill="#7c3aed" opacity="0"/>
+
+            <!-- gp16: Gold V-collar -->
+            <polygon id="gp16" points="162,154 155,165 162,163 169,165" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp17: Gold belt -->
+            <rect id="gp17" x="145" y="179" width="34" height="7" rx="3" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp18: Head -->
+            <circle id="gp18" cx="162" cy="132" r="19" fill="#e8c49a" opacity="0"/>
+
+            <!-- gp19: Dark beard -->
+            <path id="gp19" d="M 148 143 Q 151 158 162 161 Q 173 158 176 143" fill="#3d2b1f" opacity="0"/>
+
+            <!-- gp20: Crown base -->
+            <rect id="gp20" x="144" y="111" width="36" height="11" rx="3" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp21: Crown spike — left -->
+            <polygon id="gp21" points="146,111 151,95 157,111" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp22: Crown spike — center (taller, brighter) -->
+            <polygon id="gp22" points="154,111 162,88 170,111" fill="#fcd34d" opacity="0"/>
+
+            <!-- gp23: Crown spike — right -->
+            <polygon id="gp23" points="167,111 173,95 178,111" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp24: Crown jewel (red gem on center spike) -->
+            <ellipse id="gp24" cx="162" cy="98" rx="5" ry="6" fill="#dc2626" opacity="0"/>
+
+            <!-- gp25: Left eye (large, evil) -->
+            <ellipse id="gp25" cx="154" cy="128" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
+
+            <!-- gp26: Right eye -->
+            <ellipse id="gp26" cx="170" cy="128" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
+
+            <!-- gp27: Sinister wide grin -->
+            <path id="gp27" d="M 151 143 Q 162 154 173 143" stroke="#8B0000" stroke-width="2.5" fill="rgba(139,0,0,0.2)" stroke-linecap="round" opacity="0"/>
+
+            <!-- gp28: Left arm -->
+            <line id="gp28" x1="145" y1="167" x2="123" y2="184" stroke="#e8c49a" stroke-width="9" stroke-linecap="round" opacity="0"/>
+
+            <!-- gp29: Right arm -->
+            <line id="gp29" x1="179" y1="167" x2="199" y2="182" stroke="#e8c49a" stroke-width="9" stroke-linecap="round" opacity="0"/>
+
+            <!-- gp30: Both legs -->
+            <g id="gp30" opacity="0">
+              <line x1="155" y1="195" x2="147" y2="228" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
+              <line x1="169" y1="195" x2="177" y2="228" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
+            </g>
+
+          </g><!-- /hamanGroup -->
         </svg>
       </div>
 
@@ -135,8 +187,8 @@
           animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
         ">
           <div style="font-size: 2rem; margin-bottom: 6px;">🎉🪢🎉</div>
-          <div style="font-size: 1.25rem; font-weight: 900; color: #fcd34d; margin-bottom: 4px;" id="winBannerTitle">ניצחת!</div>
-          <div style="font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-bottom: 14px;">אפשר להמשיך לענות שאלות בונוס</div>
+          <div style="font-size: 1.25rem; font-weight: 900; color: #6b21a8; margin-bottom: 4px;" id="winBannerTitle">ניצחת!</div>
+          <div style="font-size: 0.95rem; color: rgba(59,7,100,0.65); margin-bottom: 14px;">אפשר להמשיך לענות שאלות בונוס</div>
           <button class="btn btn-primary" onclick="goToWin()">סיים משחק 🏆</button>
         </div>
       </div>

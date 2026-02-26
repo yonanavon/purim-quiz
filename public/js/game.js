@@ -84,6 +84,9 @@ function showAllGallows() {
       el.style.opacity = '1';
     }
   }
+  // Start Haman's swing animation
+  const swing = document.getElementById('hamanSwing');
+  if (swing) swing.beginElement();
 }
 
 async function loadNextQuestion() {
@@ -226,10 +229,14 @@ function restartGame() {
   document.getElementById('gameOverOverlay').classList.add('hidden');
   document.getElementById('winBanner').classList.add('hidden');
 
+  // Stop swing animation
+  const swing = document.getElementById('hamanSwing');
+  if (swing) swing.endElement();
+
   // Reset SVG
   for (let i = 1; i <= TOTAL_GALLOWS_ELEMENTS; i++) {
     const el = document.getElementById(`gp${i}`);
-    if (el) el.style.opacity = '0';
+    if (el) { el.style.transition = 'none'; el.style.opacity = '0'; }
   }
 
   updateUI();
