@@ -89,9 +89,9 @@ function renderTable(questions) {
   }
 
   const rows = questions.map(q => {
-    const correctLabel = LETTER_MAP[q.correct_answer] || q.correct_answer;
+    const correctLabel = q.correct_answer === 'j' ? '🤡 הומוריסטית' : (LETTER_MAP[q.correct_answer] || q.correct_answer);
     const options = ['a','b','c','d'].map(opt =>
-      `<span style="color:rgba(255,255,255,0.6)">${LETTER_MAP[opt]}:</span> ${escHtml(q['option_' + opt])}${q.correct_answer === opt ? ' <span class="correct-badge">✓</span>' : ''}`
+      `<span style="color:rgba(59,7,100,0.5)">${LETTER_MAP[opt]}:</span> ${escHtml(q['option_' + opt])}${q.correct_answer === opt ? ' <span class="correct-badge">✓</span>' : ''}${q.correct_answer === 'j' ? ' <span class="correct-badge">🤡</span>' : ''}`
     ).join('<br>');
 
     return `

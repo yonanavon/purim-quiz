@@ -133,6 +133,16 @@ async function loadNextQuestion() {
 function displayQuestion(q) {
   document.getElementById('questionText').textContent = q.question;
 
+  // Show/hide joke badge
+  const jokeBadge = document.getElementById('jokeBadge');
+  if (jokeBadge) {
+    if (q.correct_answer === 'j') {
+      jokeBadge.classList.remove('hidden');
+    } else {
+      jokeBadge.classList.add('hidden');
+    }
+  }
+
   const opts = ['a', 'b', 'c', 'd'];
   opts.forEach(opt => {
     const btn = document.getElementById(`btn${opt.toUpperCase()}`);
@@ -149,13 +159,17 @@ async function submitAnswer(chosen) {
   answering = false;
 
   const correct = currentQuestion.correct_answer;
-  const isCorrect = chosen === correct;
+  const isJoke = correct === 'j';
+  const isCorrect = isJoke || chosen === correct;
 
   // Highlight buttons
   ['a', 'b', 'c', 'd'].forEach(opt => {
     const btn = document.getElementById(`btn${opt.toUpperCase()}`);
     btn.disabled = true;
-    if (opt === correct) {
+    if (isJoke) {
+      // All answers correct — light up all green
+      btn.classList.add('correct');
+    } else if (opt === correct) {
       btn.classList.add('correct');
     } else if (opt === chosen && !isCorrect) {
       btn.classList.add('wrong');

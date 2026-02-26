@@ -19,9 +19,17 @@ async function initDb() {
         option_b TEXT NOT NULL,
         option_c TEXT NOT NULL,
         option_d TEXT NOT NULL,
-        correct_answer CHAR(1) NOT NULL CHECK (correct_answer IN ('a','b','c','d')),
+        correct_answer CHAR(1) NOT NULL CHECK (correct_answer IN ('a','b','c','d','j')),
         created_at TIMESTAMP DEFAULT NOW()
       )
+    `);
+    // Migration: allow 'j' (joke) in existing tables
+    await client.query(`
+      ALTER TABLE questions DROP CONSTRAINT IF EXISTS questions_correct_answer_check
+    `);
+    await client.query(`
+      ALTER TABLE questions ADD CONSTRAINT questions_correct_answer_check
+        CHECK (correct_answer IN ('a','b','c','d','j'))
     `);
     console.log('Database schema initialized');
   } finally {

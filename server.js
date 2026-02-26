@@ -87,8 +87,8 @@ app.post('/api/admin/questions', requireAdmin, async (req, res) => {
   if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer) {
     return res.status(400).json({ error: 'כל השדות חובה' });
   }
-  if (!['a', 'b', 'c', 'd'].includes(correct_answer)) {
-    return res.status(400).json({ error: 'תשובה נכונה חייבת להיות a/b/c/d' });
+  if (!['a', 'b', 'c', 'd', 'j'].includes(correct_answer)) {
+    return res.status(400).json({ error: 'תשובה נכונה חייבת להיות a/b/c/d או j לשאלה הומוריסטית' });
   }
   try {
     const result = await pool.query(
@@ -109,8 +109,8 @@ app.put('/api/admin/questions/:id', requireAdmin, async (req, res) => {
   if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer) {
     return res.status(400).json({ error: 'כל השדות חובה' });
   }
-  if (!['a', 'b', 'c', 'd'].includes(correct_answer)) {
-    return res.status(400).json({ error: 'תשובה נכונה חייבת להיות a/b/c/d' });
+  if (!['a', 'b', 'c', 'd', 'j'].includes(correct_answer)) {
+    return res.status(400).json({ error: 'תשובה נכונה חייבת להיות a/b/c/d או j לשאלה הומוריסטית' });
   }
   try {
     const result = await pool.query(
@@ -168,8 +168,8 @@ app.post('/api/admin/import-csv', requireAdmin, upload.single('csv'), async (req
             return;
           }
           const ca = correct_answer.trim().toLowerCase();
-          if (!['a', 'b', 'c', 'd'].includes(ca)) {
-            errors.push(`שורה ${i + 2}: תשובה נכונה לא תקינה (${correct_answer})`);
+          if (!['a', 'b', 'c', 'd', 'j'].includes(ca)) {
+            errors.push(`שורה ${i + 2}: תשובה נכונה לא תקינה (${correct_answer}) — השתמש ב-a/b/c/d או j לשאלה הומוריסטית`);
             return;
           }
           records.push([question, option_a, option_b, option_c, option_d, ca]);
