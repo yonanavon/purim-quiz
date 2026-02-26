@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לתלות את המן 🎭</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="confetti-container" id="confetti"></div>
+
+  <div class="container">
+    <div class="header">
+      <span class="emoji-big">🎭</span>
+      <h1>לתלות את המן!</h1>
+      <p class="subtitle">משחק טריוויה פורימי</p>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label for="playerName">שם התלמיד</label>
+        <input type="text" id="playerName" placeholder="הכנס את שמך..." autocomplete="off" />
+      </div>
+
+      <div class="form-group">
+        <label for="playerGrade">כיתה</label>
+        <select id="playerGrade">
+          <option value="">בחר כיתה...</option>
+          <option value="א">א׳</option>
+          <option value="ב">ב׳</option>
+          <option value="ג">ג׳</option>
+          <option value="ד">ד׳</option>
+          <option value="ה">ה׳</option>
+          <option value="ו">ו׳</option>
+          <option value="ז">ז׳</option>
+          <option value="ח">ח׳</option>
+          <option value="פסיפס">פסיפס</option>
+        </select>
+      </div>
+
+      <div id="errorMsg" class="alert alert-error"></div>
+
+      <button class="btn btn-primary btn-full" onclick="startGame()">
+        יאללה, נתלה את המן! 🪢
+      </button>
+    </div>
+
+    <p style="margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.4);">
+      תלמוד תורה חב"ד • פורים תשפ"ה
+    </p>
+  </div>
+
+  <script>
+    // Generate confetti
+    const confettiContainer = document.getElementById('confetti');
+    const colors = ['#f59e0b','#9333ea','#dc2626','#f97316','#fcd34d','#c084fc'];
+    for (let i = 0; i < 25; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.cssText = `
+        left: ${Math.random() * 100}%;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-delay: ${Math.random() * 5}s;
+        animation-duration: ${3 + Math.random() * 4}s;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        width: ${6 + Math.random() * 10}px;
+        height: ${8 + Math.random() * 16}px;
+        opacity: 1;
+      `;
+      confettiContainer.appendChild(piece);
+    }
+
+    function startGame() {
+      const name = document.getElementById('playerName').value.trim();
+      const grade = document.getElementById('playerGrade').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!name) {
+        errorMsg.textContent = 'נא להזין שם';
+        errorMsg.classList.add('show');
+        return;
+      }
+      if (!grade) {
+        errorMsg.textContent = 'נא לבחור כיתה';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      errorMsg.classList.remove('show');
+      localStorage.setItem('playerName', name);
+      localStorage.setItem('playerGrade', grade);
+      window.location.href = 'game.html';
+    }
+
+    // Allow Enter key
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') startGame();
+    });
+  </script>
+</body>
+</html>

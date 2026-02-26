@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ניצחת! 🎉</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .fireworks {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .fw-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: fw-fly linear forwards;
+    }
+    @keyframes fw-fly {
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+    }
+    .celebration-haman {
+      font-size: 5rem;
+      animation: spin-celebrate 1s ease-out;
+      display: block;
+      margin: 0 auto 8px;
+    }
+    @keyframes spin-celebrate {
+      0% { transform: rotate(0deg) scale(0); opacity: 0; }
+      60% { transform: rotate(380deg) scale(1.2); opacity: 1; }
+      100% { transform: rotate(360deg) scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="fireworks" id="fireworks"></div>
+  <div class="confetti-container" id="confetti"></div>
+
+  <div class="container">
+    <div class="win-container">
+      <span class="celebration-haman">🪢</span>
+      <h1 class="win-title" id="winTitle">כל הכבוד!</h1>
+      <p style="font-size: 1.3rem; margin-bottom: 8px; color: rgba(255,255,255,0.9);" id="winSubtitle">
+        תלית את המן! 🎭
+      </p>
+
+      <div class="win-stats" id="winStats">
+        <div class="win-stat">
+          <div class="num" id="statCorrect">-</div>
+          <div class="lbl">תשובות נכונות</div>
+        </div>
+        <div class="win-stat">
+          <div class="num" id="statWrong">-</div>
+          <div class="lbl">תשובות שגויות</div>
+        </div>
+        <div class="win-stat">
+          <div class="num" id="statGrade">-</div>
+          <div class="lbl">כיתה</div>
+        </div>
+      </div>
+
+      <div class="win-instruction">
+        ⭐ גש/י למדריך לסימון הכרטיסייה! ⭐
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="newGame()">משחק חדש 🎮</button>
+        <button class="btn btn-secondary" onclick="window.location.href='index.html'">שחקן חדש 👤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Read params
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') || localStorage.getItem('playerName') || 'שחקן';
+    const grade = params.get('grade') || localStorage.getItem('playerGrade') || '';
+    const correct = parseInt(params.get('correct') || '0');
+    const wrong = parseInt(params.get('wrong') || '0');
+
+    document.getElementById('winTitle').textContent = `כל הכבוד ${name}!`;
+    document.getElementById('statCorrect').textContent = correct;
+    document.getElementById('statWrong').textContent = wrong;
+    document.getElementById('statGrade').textContent = grade ? `כיתה ${grade}` : '-';
+
+    function newGame() {
+      window.location.href = 'game.html';
+    }
+
+    // Confetti
+    const confettiContainer = document.getElementById('confetti');
+    const colors = ['#f59e0b','#9333ea','#dc2626','#f97316','#fcd34d','#c084fc','#34d399'];
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.cssText = `
+        left: ${Math.random() * 100}%;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-delay: ${Math.random() * 3}s;
+        animation-duration: ${2 + Math.random() * 4}s;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        width: ${6 + Math.random() * 10}px;
+        height: ${8 + Math.random() * 16}px;
+        opacity: 1;
+      `;
+      confettiContainer.appendChild(piece);
+    }
+
+    // Fireworks burst
+    function burst(x, y) {
+      const fw = document.getElementById('fireworks');
+      const numPieces = 18;
+      for (let i = 0; i < numPieces; i++) {
+        const angle = (i / numPieces) * 2 * Math.PI;
+        const distance = 60 + Math.random() * 80;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        const piece = document.createElement('div');
+        piece.className = 'fw-piece';
+        piece.style.cssText = `
+          left: ${x}px; top: ${y}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          --tx: ${tx}px; --ty: ${ty}px;
+          animation-duration: ${0.6 + Math.random() * 0.5}s;
+        `;
+        fw.appendChild(piece);
+        setTimeout(() => piece.remove(), 1200);
+      }
+    }
+
+    // Trigger multiple fireworks
+    setTimeout(() => burst(window.innerWidth * 0.3, window.innerHeight * 0.4), 300);
+    setTimeout(() => burst(window.innerWidth * 0.7, window.innerHeight * 0.3), 600);
+    setTimeout(() => burst(window.innerWidth * 0.5, window.innerHeight * 0.5), 900);
+    setTimeout(() => burst(window.innerWidth * 0.2, window.innerHeight * 0.6), 1200);
+    setTimeout(() => burst(window.innerWidth * 0.8, window.innerHeight * 0.5), 1500);
+  </script>
+</body>
+</html>

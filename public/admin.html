@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ממשק ניהול - לתלות את המן</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="confetti-container" id="confetti"></div>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="header">
+      <span class="emoji-big">🔐</span>
+      <h1 style="font-size:2rem; background: linear-gradient(135deg,#fcd34d,#f59e0b,#f97316); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">ממשק ניהול</h1>
+    </div>
+    <div class="card">
+      <div class="form-group">
+        <label for="loginPassword">סיסמת מנהל</label>
+        <input type="password" id="loginPassword" placeholder="הזן סיסמה..." />
+      </div>
+      <div id="loginError" class="alert alert-error"></div>
+      <button class="btn btn-primary btn-full" onclick="login()">כניסה</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-container hidden" id="adminPanel">
+
+    <div class="admin-header">
+      <h1>🎭 ניהול שאלות</h1>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span id="questionCount" style="color:rgba(255,255,255,0.6); font-size:0.9rem;"></span>
+        <a href="index.html" class="btn btn-secondary btn-sm">← חזרה למשחק</a>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,0.1); color:white;" onclick="logout()">התנתק</button>
+      </div>
+    </div>
+
+    <!-- ADD QUESTION -->
+    <div class="admin-section">
+      <h2>➕ הוספת שאלה</h2>
+      <div id="addAlert" class="alert"></div>
+
+      <div class="form-group">
+        <label>שאלה</label>
+        <textarea id="newQuestion" placeholder="הכנס את השאלה..."></textarea>
+      </div>
+
+      <div class="options-grid">
+        <div class="option-field">
+          <label>א:</label>
+          <input type="text" id="newOptA" placeholder="אפשרות א׳" />
+        </div>
+        <div class="option-field">
+          <label>ב:</label>
+          <input type="text" id="newOptB" placeholder="אפשרות ב׳" />
+        </div>
+        <div class="option-field">
+          <label>ג:</label>
+          <input type="text" id="newOptC" placeholder="אפשרות ג׳" />
+        </div>
+        <div class="option-field">
+          <label>ד:</label>
+          <input type="text" id="newOptD" placeholder="אפשרות ד׳" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:14px;">
+        <label>תשובה נכונה</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="newCorrect" value="a"> א׳</label>
+          <label class="radio-label"><input type="radio" name="newCorrect" value="b"> ב׳</label>
+          <label class="radio-label"><input type="radio" name="newCorrect" value="c"> ג׳</label>
+          <label class="radio-label"><input type="radio" name="newCorrect" value="d"> ד׳</label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="addQuestion()">הוסף שאלה ✅</button>
+    </div>
+
+    <!-- IMPORT CSV -->
+    <div class="admin-section">
+      <h2>📥 ייבוא CSV</h2>
+      <div class="csv-instructions">
+        <strong>פורמט CSV:</strong><br>
+        <code>question,option_a,option_b,option_c,option_d,correct_answer</code><br><br>
+        דוגמה:<br>
+        <code>מי היה מלך אחשוורוש?,שושן,פרס,מדי,בבל,b</code><br><br>
+        • השורה הראשונה חייבת להיות כותרת<br>
+        • <code>correct_answer</code> חייב להיות <code>a</code> / <code>b</code> / <code>c</code> / <code>d</code><br>
+        • שמור כ-UTF-8 (עם BOM לתמיכה בעברית)
+      </div>
+      <div id="csvAlert" class="alert"></div>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <input type="file" id="csvFile" accept=".csv" style="color:white;" />
+        <button class="btn btn-secondary" onclick="importCSV()">ייבא CSV 📤</button>
+      </div>
+    </div>
+
+    <!-- QUESTIONS TABLE -->
+    <div class="admin-section">
+      <h2>📋 רשימת שאלות</h2>
+      <div id="tableAlert" class="alert"></div>
+      <div id="questionsTableContainer">
+        <div class="loading"><div class="spinner"></div>טוען שאלות...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>✏️ עריכת שאלה</h3>
+      <input type="hidden" id="editId" />
+
+      <div class="form-group">
+        <label>שאלה</label>
+        <textarea id="editQuestion"></textarea>
+      </div>
+
+      <div class="options-grid">
+        <div class="option-field">
+          <label>א:</label>
+          <input type="text" id="editOptA" />
+        </div>
+        <div class="option-field">
+          <label>ב:</label>
+          <input type="text" id="editOptB" />
+        </div>
+        <div class="option-field">
+          <label>ג:</label>
+          <input type="text" id="editOptC" />
+        </div>
+        <div class="option-field">
+          <label>ד:</label>
+          <input type="text" id="editOptD" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:14px;">
+        <label>תשובה נכונה</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="editCorrect" value="a"> א׳</label>
+          <label class="radio-label"><input type="radio" name="editCorrect" value="b"> ב׳</label>
+          <label class="radio-label"><input type="radio" name="editCorrect" value="c"> ג׳</label>
+          <label class="radio-label"><input type="radio" name="editCorrect" value="d"> ד׳</label>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; margin-top:16px;">
+        <button class="btn btn-primary" onclick="saveEdit()">שמור שינויים</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,0.1); color:white;" onclick="closeModal()">ביטול</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

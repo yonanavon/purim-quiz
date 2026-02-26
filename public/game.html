@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לתלות את המן 🎭</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="confetti-container" id="confetti"></div>
+
+  <div class="container" style="justify-content: flex-start; padding-top: 16px; max-width: 780px;">
+
+    <!-- Top bar -->
+    <div class="game-stats" style="max-width: 700px; width: 100%;">
+      <div class="stat">
+        <span class="stat-value" id="correctCount">0</span>
+        <span>נכון ✅</span>
+      </div>
+      <div class="stat">
+        <div class="lives-container" id="livesContainer">
+          <span class="life" id="life1">🍷</span>
+          <span class="life" id="life2">🍷</span>
+          <span class="life" id="life3">🍷</span>
+        </div>
+        <span style="font-size:0.8rem;">חיים</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="wrongCount">0</span>
+        <span>שגוי ❌</span>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-container" style="max-width: 700px; width: 100%;">
+      <div class="progress-label" id="progressLabel">0 / 0 שאלות נכונות לניצחון</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 16px; width: 100%; max-width: 700px; align-items: flex-start; flex-wrap: wrap;">
+
+      <!-- Gallows SVG -->
+      <div class="gallows-container" style="flex: 0 0 280px;">
+        <svg class="gallows-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- GALLOWS STRUCTURE: parts 1-13 -->
+
+          <!-- Part 1: Base platform left -->
+          <rect id="gp1" x="10" y="245" width="80" height="10" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 2: Base platform right -->
+          <rect id="gp2" x="90" y="245" width="70" height="10" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 3: Left vertical post lower -->
+          <rect id="gp3" x="45" y="180" width="12" height="65" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 4: Left vertical post upper -->
+          <rect id="gp4" x="45" y="100" width="12" height="80" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 5: Diagonal brace -->
+          <line id="gp5" x1="57" y1="130" x2="90" y2="100" stroke="#8B4513" stroke-width="8" stroke-linecap="round" opacity="0"/>
+          <!-- Part 6: Top horizontal beam left -->
+          <rect id="gp6" x="45" y="92" width="60" height="12" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 7: Top horizontal beam right -->
+          <rect id="gp7" x="105" y="92" width="55" height="12" rx="3" fill="#8B4513" opacity="0"/>
+          <!-- Part 8: Rope top section -->
+          <line id="gp8" x1="148" y1="104" x2="148" y2="120" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
+          <!-- Part 9: Rope knot circle -->
+          <circle id="gp9" cx="148" cy="123" r="5" fill="none" stroke="#d4a017" stroke-width="3" opacity="0"/>
+          <!-- Part 10: Platform support left -->
+          <rect id="gp10" x="60" y="220" width="10" height="25" rx="2" fill="#6B3410" opacity="0"/>
+          <!-- Part 11: Platform board -->
+          <rect id="gp11" x="55" y="215" width="50" height="8" rx="2" fill="#A0522D" opacity="0"/>
+          <!-- Part 12: Platform support right -->
+          <rect id="gp12" x="100" y="220" width="10" height="25" rx="2" fill="#6B3410" opacity="0"/>
+          <!-- Part 13: Rope lower section -->
+          <line id="gp13" x1="148" y1="128" x2="148" y2="138" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
+
+          <!-- HAMAN: parts 14-30 -->
+
+          <!-- Part 14: Body torso -->
+          <rect id="gp14" x="136" y="174" width="24" height="40" rx="8" fill="#e8c49a" opacity="0"/>
+          <!-- Part 15: Fancy coat / robe -->
+          <rect id="gp15" x="132" y="176" width="32" height="36" rx="6" fill="#9333ea" opacity="0"/>
+          <!-- Part 16: Gold trim on coat -->
+          <rect id="gp16" x="146" y="176" width="4" height="36" rx="2" fill="#f59e0b" opacity="0"/>
+          <!-- Part 17: Head -->
+          <circle id="gp17" cx="148" cy="158" r="18" fill="#e8c49a" opacity="0"/>
+          <!-- Part 18: Crown base -->
+          <rect id="gp18" x="132" y="138" width="32" height="10" rx="3" fill="#f59e0b" opacity="0"/>
+          <!-- Part 19: Crown spike left -->
+          <polygon id="gp19" points="134,138 139,124 144,138" fill="#f59e0b" opacity="0"/>
+          <!-- Part 20: Crown spike middle -->
+          <polygon id="gp20" points="144,138 148,120 152,138" fill="#f59e0b" opacity="0"/>
+          <!-- Part 21: Crown spike right -->
+          <polygon id="gp21" points="152,138 157,124 162,138" fill="#f59e0b" opacity="0"/>
+          <!-- Part 22: Crown jewel -->
+          <circle id="gp22" cx="148" cy="130" r="4" fill="#dc2626" opacity="0"/>
+          <!-- Part 23: Evil eye left -->
+          <ellipse id="gp23" cx="141" cy="155" rx="4" ry="5" fill="#1a0a3c" opacity="0"/>
+          <!-- Part 24: Evil eye right -->
+          <ellipse id="gp24" cx="155" cy="155" rx="4" ry="5" fill="#1a0a3c" opacity="0"/>
+          <!-- Part 25: Sinister grin -->
+          <path id="gp25" d="M 140 166 Q 148 173 156 166" stroke="#8B0000" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0"/>
+          <!-- Part 26: Left arm -->
+          <line id="gp26" x1="132" y1="185" x2="112" y2="200" stroke="#e8c49a" stroke-width="8" stroke-linecap="round" opacity="0"/>
+          <!-- Part 27: Right arm -->
+          <line id="gp27" x1="164" y1="185" x2="184" y2="200" stroke="#e8c49a" stroke-width="8" stroke-linecap="round" opacity="0"/>
+          <!-- Part 28: Left leg -->
+          <line id="gp28" x1="140" y1="214" x2="130" y2="244" stroke="#9333ea" stroke-width="9" stroke-linecap="round" opacity="0"/>
+          <!-- Part 29: Right leg -->
+          <line id="gp29" x1="156" y1="214" x2="166" y2="244" stroke="#9333ea" stroke-width="9" stroke-linecap="round" opacity="0"/>
+          <!-- Part 30: Rope around neck (final) -->
+          <path id="gp30" d="M 148 140 L 148 134 Q 148 128 148 126" stroke="#d4a017" stroke-width="4" stroke-linecap="round" opacity="0"/>
+        </svg>
+      </div>
+
+      <!-- Question & Answers -->
+      <div style="flex: 1; min-width: 280px;">
+        <div class="question-box" id="questionText">
+          <div class="spinner"></div>
+        </div>
+        <div class="answers-grid" id="answersGrid">
+          <button class="answer-btn" id="btnA" onclick="submitAnswer('a')"></button>
+          <button class="answer-btn" id="btnB" onclick="submitAnswer('b')"></button>
+          <button class="answer-btn" id="btnC" onclick="submitAnswer('c')"></button>
+          <button class="answer-btn" id="btnD" onclick="submitAnswer('d')"></button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Game Over Overlay -->
+  <div class="overlay hidden" id="gameOverOverlay">
+    <div class="overlay-card">
+      <div style="font-size: 3rem; margin-bottom: 12px;">💀</div>
+      <h2>נסו שוב!</h2>
+      <p>אל תוותרו! המן עוד מחכה לתליה...</p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button class="btn btn-primary" onclick="restartGame()">נסה שוב 🔄</button>
+        <button class="btn btn-secondary" onclick="window.location.href='index.html'">בחירת שחקן</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>
