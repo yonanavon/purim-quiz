@@ -148,34 +148,39 @@ app.post('/api/admin/import-csv', requireAdmin, upload.single('csv'), async (req
     return res.status(400).json({ error: 'לא צורף קובץ CSV' });
   }
 
-  const csvContent = req.file.buffer.toString('utf-8');
+  // Strip BOM manually and detect delimiter (comma or semicolon)
+  let csvContent = req.file.buffer.toString('utf8').replace(/^\uFEFF/, '');
+  const delimiter = csvContent.includes(';') && !csvContent.split('\n')[0].includes(',') ? ';' : ',';
+
   const records = [];
   const errors = [];
 
   try {
-    await new Promise((resolve, reject) => {
+    const data = await new Promise((resolve, reject) => {
       parse(csvContent, {
         columns: true,
         skip_empty_lines: true,
         trim: true,
-        bom: true
-      }, (err, data) => {
+        delimiter,
+        relax_column_count: true
+      }, (err, rows) => {
         if (err) return reject(err);
-        data.forEach((row, i) => {
-          const { question, option_a, option_b, option_c, option_d, correct_answer } = row;
-          if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer) {
-            errors.push(`שורה ${i + 2}: שדות חסרים`);
-            return;
-          }
-          const ca = correct_answer.trim().toLowerCase();
-          if (!['a', 'b', 'c', 'd', 'j'].includes(ca)) {
-            errors.push(`שורה ${i + 2}: תשובה נכונה לא תקינה (${correct_answer}) — השתמש ב-a/b/c/d או j לשאלה הומוריסטית`);
-            return;
-          }
-          records.push([question, option_a, option_b, option_c, option_d, ca]);
-        });
-        resolve();
+        resolve(rows);
       });
+    });
+
+    data.forEach((row, i) => {
+      const { question, option_a, option_b, option_c, option_d, correct_answer } = row;
+      if (!question || !option_a || !option_b || !option_c || !option_d || !correct_answer) {
+        errors.push(`שורה ${i + 2}: שדות חסרים`);
+        return;
+      }
+      const ca = correct_answer.trim().toLowerCase();
+      if (!['a', 'b', 'c', 'd', 'j'].includes(ca)) {
+        errors.push(`שורה ${i + 2}: תשובה נכונה לא תקינה "${correct_answer}" — השתמש a/b/c/d או j`);
+        return;
+      }
+      records.push([question, option_a, option_b, option_c, option_d, ca]);
     });
 
     let inserted = 0;
@@ -187,10 +192,10 @@ app.post('/api/admin/import-csv', requireAdmin, upload.single('csv'), async (req
       inserted++;
     }
 
-    res.json({ inserted, errors });
+    res.json({ inserted, errors, delimiter });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'שגיאה בעיבוד ה-CSV' });
+    console.error('CSV import error:', err);
+    res.status(500).json({ error: `שגיאה בעיבוד ה-CSV: ${err.message}` });
   }
 });
 
