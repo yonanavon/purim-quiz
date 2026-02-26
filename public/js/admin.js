@@ -203,8 +203,6 @@ async function deleteQuestion(id) {
 }
 
 // ===== EDIT QUESTION =====
-let allQuestions = [];
-
 async function openEdit(id) {
   // Fetch fresh data
   try {

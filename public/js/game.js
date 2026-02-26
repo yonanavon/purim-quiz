@@ -68,10 +68,12 @@ function updateUI() {
   for (let i = 1; i <= TOTAL_GALLOWS_ELEMENTS; i++) {
     const el = document.getElementById(`gp${i}`);
     if (el) {
-      el.style.opacity = i <= elementsToShow ? '1' : '0';
-      if (i <= elementsToShow && parseFloat(el.style.opacity) === 0) {
+      const shouldShow = i <= elementsToShow;
+      const currentlyHidden = parseFloat(el.style.opacity || '0') === 0;
+      if (shouldShow && currentlyHidden) {
         el.style.transition = 'opacity 0.4s ease';
       }
+      el.style.opacity = shouldShow ? '1' : '0';
     }
   }
 }
