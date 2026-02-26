@@ -162,7 +162,9 @@ app.post('/api/admin/import-csv', requireAdmin, upload.single('csv'), async (req
         skip_empty_lines: true,
         trim: true,
         delimiter,
-        relax_column_count: true
+        relax_column_count: true,
+        relax_quotes: true,
+        escape: null
       }, (err, rows) => {
         if (err) return reject(err);
         resolve(rows);
