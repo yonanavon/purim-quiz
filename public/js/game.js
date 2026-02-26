@@ -94,12 +94,13 @@ async function loadNextQuestion() {
   const questionText = document.getElementById('questionText');
   questionText.innerHTML = '<div class="spinner"></div>';
 
-  // Disable buttons
+  // Disable buttons and remove focus so no button appears highlighted
   ['a', 'b', 'c', 'd'].forEach(opt => {
     const btn = document.getElementById(`btn${opt.toUpperCase()}`);
     btn.disabled = true;
     btn.textContent = '';
     btn.className = 'answer-btn';
+    btn.blur();
   });
 
   try {
