@@ -22,6 +22,7 @@ let wrongAnswers = 0;
 let askedIds = [];
 let currentQuestion = null;
 let answering = false;
+let hasWon = false;
 
 // Hebrew letter labels for options
 const OPTION_LABELS = { a: 'א', b: 'ב', c: 'ג', d: 'ד' };
@@ -54,8 +55,13 @@ function updateUI() {
   // Progress
   const pct = Math.min((correctAnswers / requiredCorrect) * 100, 100);
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent =
-    `${correctAnswers} / ${requiredCorrect} שאלות נכונות לניצחון`;
+  if (hasWon) {
+    document.getElementById('progressLabel').textContent =
+      `🎉 ניצחת! המשך לשאלות בונוס — ${correctAnswers} נכונות`;
+  } else {
+    document.getElementById('progressLabel').textContent =
+      `${correctAnswers} / ${requiredCorrect} שאלות נכונות לניצחון`;
+  }
 
   // Gallows SVG
   const elementsToShow = Math.floor((correctAnswers / requiredCorrect) * TOTAL_GALLOWS_ELEMENTS);
@@ -99,9 +105,14 @@ async function loadNextQuestion() {
     const res = await fetch(url);
 
     if (res.status === 404) {
-      // No more unique questions — reset asked list and try again
-      askedIds = [];
-      return loadNextQuestion();
+      // No more questions left
+      questionText.textContent = 'אין עוד שאלות! סיימת את כל בנק השאלות 🏆';
+      ['a', 'b', 'c', 'd'].forEach(opt => {
+        const btn = document.getElementById(`btn${opt.toUpperCase()}`);
+        btn.disabled = true;
+        btn.innerHTML = '';
+      });
+      return;
     }
 
     if (!res.ok) throw new Error('Server error');
@@ -152,12 +163,11 @@ async function submitAnswer(chosen) {
     correctAnswers++;
     updateUI();
 
-    if (correctAnswers >= requiredCorrect) {
-      // WIN!
+    if (!hasWon && correctAnswers >= requiredCorrect) {
+      // WIN — show banner but keep playing
+      hasWon = true;
       showAllGallows();
-      await delay(800);
-      goToWin();
-      return;
+      showWinBanner();
     }
   } else {
     wrongAnswers++;
@@ -175,6 +185,32 @@ async function submitAnswer(chosen) {
   loadNextQuestion();
 }
 
+function showWinBanner() {
+  const banner = document.getElementById('winBanner');
+  banner.classList.remove('hidden');
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Burst confetti
+  const container = document.getElementById('confetti');
+  const colors = ['#f59e0b','#fcd34d','#9333ea','#c084fc','#dc2626','#34d399'];
+  for (let i = 0; i < 30; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.cssText = `
+      left: ${Math.random() * 100}%;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      animation-delay: ${Math.random() * 0.8}s;
+      animation-duration: ${1.5 + Math.random() * 2}s;
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      width: ${8 + Math.random() * 10}px;
+      height: ${10 + Math.random() * 14}px;
+      opacity: 1;
+    `;
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 3500);
+  }
+}
+
 function showGameOver() {
   document.getElementById('gameOverOverlay').classList.remove('hidden');
 }
@@ -185,8 +221,10 @@ function restartGame() {
   wrongAnswers = 0;
   askedIds = [];
   currentQuestion = null;
+  hasWon = false;
 
   document.getElementById('gameOverOverlay').classList.add('hidden');
+  document.getElementById('winBanner').classList.add('hidden');
 
   // Reset SVG
   for (let i = 1; i <= TOTAL_GALLOWS_ELEMENTS; i++) {
