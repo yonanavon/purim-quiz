@@ -133,16 +133,6 @@ async function loadNextQuestion() {
 function displayQuestion(q) {
   document.getElementById('questionText').textContent = q.question;
 
-  // Show/hide joke badge
-  const jokeBadge = document.getElementById('jokeBadge');
-  if (jokeBadge) {
-    if (q.correct_answer === 'j') {
-      jokeBadge.classList.remove('hidden');
-    } else {
-      jokeBadge.classList.add('hidden');
-    }
-  }
-
   const opts = ['a', 'b', 'c', 'd'];
   opts.forEach(opt => {
     const btn = document.getElementById(`btn${opt.toUpperCase()}`);

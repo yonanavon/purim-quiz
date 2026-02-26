@@ -9,19 +9,19 @@
 <body>
   <div class="confetti-container" id="confetti"></div>
 
-  <div class="container" style="justify-content: flex-start; padding-top: 16px; max-width: 780px;">
+  <div class="container" style="justify-content: flex-start; padding-top: 16px; max-width: 960px; width: 100%;">
 
     <!-- Top bar -->
-    <div class="game-stats" style="max-width: 700px; width: 100%;">
+    <div class="game-stats" style="width: 100%; max-width: 900px;">
       <div class="stat">
         <span class="stat-value" id="correctCount">0</span>
         <span>נכון ✅</span>
       </div>
       <div class="stat">
         <div class="lives-container" id="livesContainer">
-          <span class="life" id="life1">🍷</span>
-          <span class="life" id="life2">🍷</span>
-          <span class="life" id="life3">🍷</span>
+          <span class="life" id="life1">🔨</span>
+          <span class="life" id="life2">🔨</span>
+          <span class="life" id="life3">🔨</span>
         </div>
         <span style="font-size:0.8rem; color:rgba(59,7,100,0.55); font-weight:600;">חיים</span>
       </div>
@@ -32,72 +32,64 @@
     </div>
 
     <!-- Progress -->
-    <div class="progress-container" style="max-width: 700px; width: 100%;">
+    <div class="progress-container" style="width: 100%; max-width: 900px;">
       <div class="progress-label" id="progressLabel">0 / 0 שאלות נכונות לניצחון</div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill" style="width: 0%"></div>
       </div>
     </div>
 
-    <div style="display: flex; gap: 16px; width: 100%; max-width: 700px; align-items: flex-start; flex-wrap: wrap;">
+    <!-- Main game row -->
+    <div style="display:flex; gap:20px; width:100%; max-width:900px; align-items:flex-start; flex-wrap:wrap; flex:1; min-height:72vh;">
 
-      <!-- Gallows SVG -->
-      <div class="gallows-container" style="flex: 0 0 280px;">
-        <svg class="gallows-svg" viewBox="0 0 200 268" xmlns="http://www.w3.org/2000/svg">
+      <!-- ══════ GALLOWS SVG ══════ -->
+      <div class="gallows-container" style="flex: 0 0 370px;">
+        <svg class="gallows-svg" viewBox="0 0 210 275" xmlns="http://www.w3.org/2000/svg">
 
-          <!-- ══════ GALLOWS STRUCTURE: parts 1–13 ══════ -->
+          <!-- ── FIXED GALLOWS STRUCTURE (gp1–gp9) ── -->
 
           <!-- gp1: Ground shadow -->
-          <ellipse id="gp1" cx="76" cy="260" rx="54" ry="7" fill="rgba(100,60,10,0.18)" opacity="0"/>
+          <ellipse id="gp1" cx="78" cy="267" rx="56" ry="7" fill="rgba(100,60,10,0.18)" opacity="0"/>
 
-          <!-- gp2: Ground / earth base -->
-          <rect id="gp2" x="22" y="251" width="108" height="14" rx="5" fill="#8B6340" opacity="0"/>
+          <!-- gp2: Ground / earth -->
+          <rect id="gp2" x="22" y="257" width="112" height="15" rx="5" fill="#8B6340" opacity="0"/>
 
-          <!-- gp3: Post — lower half -->
-          <rect id="gp3" x="47" y="155" width="16" height="98" rx="3" fill="#9c5a2e" opacity="0"/>
+          <!-- gp3: Post lower -->
+          <rect id="gp3" x="48" y="158" width="17" height="101" rx="3" fill="#9c5a2e" opacity="0"/>
 
-          <!-- gp4: Post — upper half -->
-          <rect id="gp4" x="47" y="58" width="16" height="97" rx="3" fill="#9c5a2e" opacity="0"/>
+          <!-- gp4: Post upper -->
+          <rect id="gp4" x="48" y="58" width="17" height="100" rx="3" fill="#9c5a2e" opacity="0"/>
 
-          <!-- gp5: Post wood grain (dashed line) -->
-          <line id="gp5" x1="52" y1="72" x2="52" y2="246" stroke="#7a4420" stroke-width="1.5" stroke-dasharray="10 5" opacity="0"/>
+          <!-- gp5: Post wood grain -->
+          <line id="gp5" x1="53" y1="74" x2="53" y2="252" stroke="#7a4420" stroke-width="1.5" stroke-dasharray="10 5" opacity="0"/>
 
-          <!-- gp6: Diagonal brace (filled triangle) -->
-          <polygon id="gp6" points="63,162 110,76 122,86 74,168" fill="#8B4513" opacity="0"/>
+          <!-- gp6: Diagonal brace -->
+          <polygon id="gp6" points="65,165 113,77 126,88 76,172" fill="#8B4513" opacity="0"/>
 
           <!-- gp7: Horizontal beam -->
-          <rect id="gp7" x="47" y="54" width="120" height="18" rx="4" fill="#9c5a2e" opacity="0"/>
+          <rect id="gp7" x="48" y="54" width="124" height="19" rx="4" fill="#9c5a2e" opacity="0"/>
 
           <!-- gp8: Beam wood grain -->
-          <line id="gp8" x1="62" y1="60" x2="160" y2="60" stroke="#7a4420" stroke-width="1.5" opacity="0"/>
+          <line id="gp8" x1="64" y1="61" x2="164" y2="61" stroke="#7a4420" stroke-width="1.5" opacity="0"/>
 
-          <!-- gp9: Rope anchor cap at beam end -->
-          <rect id="gp9" x="158" y="54" width="12" height="18" rx="3" fill="#5c3010" opacity="0"/>
+          <!-- gp9: Rope anchor cap -->
+          <rect id="gp9" x="161" y="54" width="13" height="19" rx="3" fill="#5c3010" opacity="0"/>
 
-          <!-- gp10: Rope — top straight section -->
-          <line id="gp10" x1="162" y1="72" x2="162" y2="97" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
-
-          <!-- gp11: Rope — noose loop -->
-          <ellipse id="gp11" cx="162" cy="103" rx="10" ry="7" fill="none" stroke="#b8860b" stroke-width="3" opacity="0"/>
-
-          <!-- gp12: Rope — connector below noose -->
-          <line id="gp12" x1="162" y1="110" x2="162" y2="118" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
-
-          <!-- gp13: Platform (board + two support posts) -->
+          <!-- ── FIXED PLATFORM (gp13) — rendered before hamanGroup so Haman overlaps it ── -->
           <g id="gp13" opacity="0">
-            <rect x="58" y="212" width="56" height="9" rx="3" fill="#9c5a2e"/>
-            <rect x="63" y="221" width="9" height="32" rx="2" fill="#7a4420"/>
-            <rect x="97" y="221" width="9" height="32" rx="2" fill="#7a4420"/>
+            <rect x="59" y="216" width="58" height="10" rx="3" fill="#9c5a2e"/>
+            <rect x="64" y="226" width="10" height="33" rx="2" fill="#7a4420"/>
+            <rect x="99" y="226" width="10" height="33" rx="2" fill="#7a4420"/>
           </g>
 
-          <!-- ══════ HAMAN: parts 14–30 (wrapped in group for swing animation) ══════ -->
+          <!-- ══════ HAMAN GROUP — rope + body, all swing together ══════
+               Pivot at (166, 73) = top of rope where it leaves the beam anchor -->
           <g id="hamanGroup">
-            <!-- SVG-native swing animation — triggered by JS on win -->
             <animateTransform
               id="hamanSwing"
               attributeName="transform"
               type="rotate"
-              values="-6 162 72; 6 162 72; -6 162 72"
+              values="-6 166 73; 6 166 73; -6 166 73"
               keyTimes="0; 0.5; 1"
               calcMode="spline"
               keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
@@ -106,58 +98,69 @@
               begin="indefinite"
             />
 
-            <!-- gp14: Skin torso -->
-            <rect id="gp14" x="150" y="152" width="24" height="46" rx="8" fill="#e8c49a" opacity="0"/>
+            <!-- gp10: Rope — top straight section (starts inside hamanGroup so it swings) -->
+            <line id="gp10" x1="166" y1="73" x2="166" y2="100" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
 
-            <!-- gp15: Purple robe -->
-            <rect id="gp15" x="145" y="154" width="34" height="42" rx="8" fill="#7c3aed" opacity="0"/>
+            <!-- gp11: Rope — noose loop -->
+            <ellipse id="gp11" cx="166" cy="106" rx="10" ry="7" fill="none" stroke="#b8860b" stroke-width="3" opacity="0"/>
 
-            <!-- gp16: Gold V-collar -->
-            <polygon id="gp16" points="162,154 155,165 162,163 169,165" fill="#f59e0b" opacity="0"/>
+            <!-- gp12: Rope — short connector below noose to neck -->
+            <line id="gp12" x1="166" y1="113" x2="166" y2="120" stroke="#b8860b" stroke-width="4" stroke-linecap="round" opacity="0"/>
 
-            <!-- gp17: Gold belt -->
-            <rect id="gp17" x="145" y="179" width="34" height="7" rx="3" fill="#f59e0b" opacity="0"/>
+            <!-- ── HAMAN — head first, then crown, face, body, limbs ── -->
 
-            <!-- gp18: Head -->
-            <circle id="gp18" cx="162" cy="132" r="19" fill="#e8c49a" opacity="0"/>
+            <!-- gp14: Head -->
+            <circle id="gp14" cx="166" cy="136" r="20" fill="#e8c49a" opacity="0"/>
 
-            <!-- gp19: Dark beard -->
-            <path id="gp19" d="M 148 143 Q 151 158 162 161 Q 173 158 176 143" fill="#3d2b1f" opacity="0"/>
+            <!-- gp15: Crown base -->
+            <rect id="gp15" x="147" y="114" width="38" height="12" rx="3" fill="#f59e0b" opacity="0"/>
 
-            <!-- gp20: Crown base -->
-            <rect id="gp20" x="144" y="111" width="36" height="11" rx="3" fill="#f59e0b" opacity="0"/>
+            <!-- gp16: Crown spike — left -->
+            <polygon id="gp16" points="149,114 154,97 160,114" fill="#f59e0b" opacity="0"/>
 
-            <!-- gp21: Crown spike — left -->
-            <polygon id="gp21" points="146,111 151,95 157,111" fill="#f59e0b" opacity="0"/>
+            <!-- gp17: Crown spike — center (tallest) -->
+            <polygon id="gp17" points="158,114 166,90 174,114" fill="#fcd34d" opacity="0"/>
 
-            <!-- gp22: Crown spike — center (taller, brighter) -->
-            <polygon id="gp22" points="154,111 162,88 170,111" fill="#fcd34d" opacity="0"/>
+            <!-- gp18: Crown spike — right -->
+            <polygon id="gp18" points="172,114 178,97 185,114" fill="#f59e0b" opacity="0"/>
 
-            <!-- gp23: Crown spike — right -->
-            <polygon id="gp23" points="167,111 173,95 178,111" fill="#f59e0b" opacity="0"/>
+            <!-- gp19: Crown jewel -->
+            <ellipse id="gp19" cx="166" cy="100" rx="5" ry="6" fill="#dc2626" opacity="0"/>
 
-            <!-- gp24: Crown jewel (red gem on center spike) -->
-            <ellipse id="gp24" cx="162" cy="98" rx="5" ry="6" fill="#dc2626" opacity="0"/>
+            <!-- gp20: Left eye -->
+            <ellipse id="gp20" cx="158" cy="131" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
 
-            <!-- gp25: Left eye (large, evil) -->
-            <ellipse id="gp25" cx="154" cy="128" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
+            <!-- gp21: Right eye -->
+            <ellipse id="gp21" cx="174" cy="131" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
 
-            <!-- gp26: Right eye -->
-            <ellipse id="gp26" cx="170" cy="128" rx="5" ry="5.5" fill="#1a0a2c" opacity="0"/>
+            <!-- gp22: Sinister grin -->
+            <path id="gp22" d="M 155 147 Q 166 158 177 147" stroke="#8B0000" stroke-width="2.5" fill="rgba(139,0,0,0.2)" stroke-linecap="round" opacity="0"/>
 
-            <!-- gp27: Sinister wide grin -->
-            <path id="gp27" d="M 151 143 Q 162 154 173 143" stroke="#8B0000" stroke-width="2.5" fill="rgba(139,0,0,0.2)" stroke-linecap="round" opacity="0"/>
+            <!-- gp23: Beard -->
+            <path id="gp23" d="M 152 146 Q 155 162 166 165 Q 177 162 180 146" fill="#3d2b1f" opacity="0"/>
+
+            <!-- gp24: Body torso (skin, behind robe) -->
+            <rect id="gp24" x="153" y="157" width="26" height="48" rx="9" fill="#e8c49a" opacity="0"/>
+
+            <!-- gp25: Robe -->
+            <rect id="gp25" x="148" y="159" width="36" height="44" rx="9" fill="#7c3aed" opacity="0"/>
+
+            <!-- gp26: Gold V-collar -->
+            <polygon id="gp26" points="166,159 158,171 166,169 174,171" fill="#f59e0b" opacity="0"/>
+
+            <!-- gp27: Gold belt -->
+            <rect id="gp27" x="148" y="184" width="36" height="7" rx="3" fill="#f59e0b" opacity="0"/>
 
             <!-- gp28: Left arm -->
-            <line id="gp28" x1="145" y1="167" x2="123" y2="184" stroke="#e8c49a" stroke-width="9" stroke-linecap="round" opacity="0"/>
+            <line id="gp28" x1="148" y1="171" x2="125" y2="189" stroke="#e8c49a" stroke-width="10" stroke-linecap="round" opacity="0"/>
 
             <!-- gp29: Right arm -->
-            <line id="gp29" x1="179" y1="167" x2="199" y2="182" stroke="#e8c49a" stroke-width="9" stroke-linecap="round" opacity="0"/>
+            <line id="gp29" x1="184" y1="171" x2="205" y2="188" stroke="#e8c49a" stroke-width="10" stroke-linecap="round" opacity="0"/>
 
             <!-- gp30: Both legs -->
             <g id="gp30" opacity="0">
-              <line x1="155" y1="195" x2="147" y2="228" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
-              <line x1="169" y1="195" x2="177" y2="228" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
+              <line x1="158" y1="202" x2="150" y2="234" stroke="#7c3aed" stroke-width="11" stroke-linecap="round"/>
+              <line x1="174" y1="202" x2="182" y2="234" stroke="#7c3aed" stroke-width="11" stroke-linecap="round"/>
             </g>
 
           </g><!-- /hamanGroup -->
@@ -165,19 +168,10 @@
       </div>
 
       <!-- Question & Answers -->
-      <div style="flex: 1; min-width: 280px;">
-        <div class="question-box" id="questionText">
+      <div style="flex:1; min-width:300px; display:flex; flex-direction:column; gap:12px;">
+        <div class="question-box" id="questionText" style="font-size:1.25rem; min-height:100px;">
           <div class="spinner"></div>
         </div>
-        <div id="jokeBadge" class="hidden" style="
-          text-align:center; margin-bottom:10px; margin-top:-8px;
-          font-size:0.9rem; font-weight:700;
-          color:#6b21a8;
-          background:rgba(107,33,168,0.08);
-          border:1px solid rgba(107,33,168,0.25);
-          border-radius:20px; padding:5px 14px;
-          display:inline-block; width:100%;
-        ">🤡 שאלה הומוריסטית — כל תשובה נכונה!</div>
         <div class="answers-grid" id="answersGrid">
           <button class="answer-btn" id="btnA" onclick="submitAnswer('a')"></button>
           <button class="answer-btn" id="btnB" onclick="submitAnswer('b')"></button>
@@ -185,9 +179,8 @@
           <button class="answer-btn" id="btnD" onclick="submitAnswer('d')"></button>
         </div>
 
-        <!-- Win Banner — מופיע מתחת לשאלות אחרי הניצחון -->
+        <!-- Win Banner -->
         <div id="winBanner" class="hidden" style="
-          margin-top: 16px;
           background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(107,33,168,0.2));
           border: 2px solid #f59e0b;
           border-radius: 16px;
